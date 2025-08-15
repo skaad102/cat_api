@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   #Data
   http: ^1.5.0
+  #State Management
+  get: ^4.7.2
 
 dev_dependencies:
   flutter_test:
