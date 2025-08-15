@@ -12,7 +12,7 @@ class CatsController extends GetxController {
   }
 
   final state = ConnectionState.none.obs;
-  final allGroups = <CatsBreeds>[].obs;
+  final allCats = <CatsBreeds>[].obs;
 
   final _getCats = GetAllCatsUseCaseImpl();
 
@@ -22,7 +22,7 @@ class CatsController extends GetxController {
       state.value = ConnectionState.waiting;
       final (success, cats) = await _getCats.call();
       if (success) {
-        allGroups.value = cats;
+        allCats.value = cats;
         state.value = ConnectionState.done;
       }
     } finally {
