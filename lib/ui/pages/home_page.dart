@@ -1,4 +1,5 @@
 import 'package:app_cat_pragma/ui/controllers/cats_controller.dart';
+import 'package:app_cat_pragma/ui/widgets/list_cats.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
@@ -22,9 +23,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Cat Breeds'),
       ),
-      body: Obx(() => _buildBody()),
+      body: Column(
+        children: [
+          Padding(padding: const EdgeInsets.all(8.0), child: TextField()),
+          Obx(() => _buildBody()),
+        ],
+      ),
     );
   }
 
@@ -35,24 +42,10 @@ class _HomePageState extends State<HomePage> {
       case ConnectionState.waiting:
         return const Center(child: CircularProgressIndicator());
       case ConnectionState.done:
-        // return Obx(
-        //   () {
-        //     if (controller.allGroups.isEmpty) {
-        //       return const Center(child: Text('No cats found'));
-        //     }
-        //     return ListView.builder(
-        //       itemCount: controller.allGroups.length,
-        //       itemBuilder: (context, index) {
-        //         final cat = controller.allGroups[index];
-        //         return ListTile(
-        //           title: Text(cat.name),
-        //           subtitle: Text(cat.breed),
-        //         );
-        //       },
-        //     );
-        //   },
-        // );
-        return Text('Data loaded: ${controller.allGroups.length} cats found');
+        if (controller.allCats.isEmpty) {
+          return const Center(child: Text('No cat breeds found'));
+        }
+        return CatList(breeds: controller.allCats);
 
       case ConnectionState.active:
         return const Center(child: Text('Error loading data'));
