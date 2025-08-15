@@ -1,6 +1,9 @@
+import 'package:app_cat_pragma/ui/main/controllers.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  initControllers();
+
   runApp(const MainApp());
 }
 
