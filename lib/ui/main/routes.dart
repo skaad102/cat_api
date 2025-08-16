@@ -14,6 +14,7 @@ class CatRoutes {
         for (final page in CatPage.pages)
           GoRoute(
             path: page.route,
+            name: page.name,
             builder: (context, state) {
               final pathParams = state.pathParameters;
               final queryParams = state.uri.queryParameters;
@@ -26,6 +27,17 @@ class CatRoutes {
 }
 
 extension RouteExtension on BuildContext {
-  void goTo(CatPage route) => GoRouter.of(this).go(route.route);
-  void replaceTo(CatPage route) => GoRouter.of(this).replace(route.route);
+  void goTo(CatPage route,
+      {Map<String, String>? queryParams, Map<String, String>? pathParams}) {
+    final dataQueryParams = queryParams ?? {};
+    final dataPathParams = pathParams ?? {};
+    GoRouter.of(this).pushNamed(route.name,
+        queryParameters: dataQueryParams, pathParameters: dataPathParams);
+  }
+
+  void replaceTo(CatPage route, {Map<String, String>? queryParams}) {
+    final dataQueryParams = queryParams ?? {};
+    GoRouter.of(this)
+        .replaceNamed(route.name, queryParameters: dataQueryParams);
+  }
 }

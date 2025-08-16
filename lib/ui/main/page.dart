@@ -45,9 +45,9 @@ class CatPage extends RouteInterface {
 
   static final detail = CatPage._(
     name: 'cat_detail',
-    route: '/home/:id',
+    route: '/home/detail',
     page: (options) {
-      final id = options.pathParams['id'] ?? '';
+      final id = options.queryParams['id'] ?? '';
       return CatDetailPage(catId: id);
     },
   );
@@ -57,4 +57,3 @@ class CatPage extends RouteInterface {
     detail,
   ];
 }
-

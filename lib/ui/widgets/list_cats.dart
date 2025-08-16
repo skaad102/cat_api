@@ -1,4 +1,6 @@
 import 'package:app_cat_pragma/domain/entity/cats_breeds.dart';
+import 'package:app_cat_pragma/ui/main/page.dart';
+import 'package:app_cat_pragma/ui/main/routes.dart';
 import 'package:app_cat_pragma/ui/widgets/card_cat.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,7 @@ class CatList extends StatelessWidget {
             final cat = breeds[index];
             return GestureDetector(
               onTap: () {
-                // Navigate to details page
+                context.goTo(CatPage.detail, queryParams: {'id': cat.id});
               },
               child: CardCat(breeds: cat),
             );
