@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class ApiPath {
   const ApiPath._();
 
@@ -14,6 +12,7 @@ class _Cats {
 
   String get base => '/';
   String get breeds => '/breeds';
+  String get breedById => '/images/search?limit=:limit&breed_ids=:id';
 }
 
 // Abstract class to represent API responses
@@ -23,7 +22,6 @@ class ApiMap extends ApiInternal {
   ApiMap.empty(String? description) : _map = {'error': description};
 
   ApiMap.fromMap(Map<String, dynamic> value) : _map = value;
-
 
   final Map<String, dynamic> _map;
 

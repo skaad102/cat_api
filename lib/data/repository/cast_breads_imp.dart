@@ -29,8 +29,26 @@ class CatsBreedsImp implements CatsBreedsRepository {
   }
 
   @override
-  Future<(bool, Map<String, dynamic>)> getBreedById(String id) {
-    // TODO: implement getBreedById
-    throw UnimplementedError();
+  Future<(bool, List<Map<String, dynamic>>)> getBreedById(
+      String id, int? limit) async {
+    final path = ApiPath.cats.breedById
+        .replaceAll(':id', id)
+        .replaceAll(':limit', limit.toString());
+    final response = await repository.rest.call<ApiList>(
+      base: ApiPath.baseUrl,
+      method: ApiMethod.get,
+      path: path,
+    );
+
+    if (response.$1 != 200) {
+      return (
+        false,
+        [
+          {"error": "Failed to fetch cat breed by id"}
+        ]
+      );
+    }
+
+    return (true, response.$2.toList());
   }
 }

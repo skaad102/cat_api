@@ -1,5 +1,6 @@
 import 'package:app_cat_pragma/domain/entity/cats_breeds.dart';
 import 'package:app_cat_pragma/domain/use_case/get_all_cats_use_case.dart';
+import 'package:app_cat_pragma/domain/use_case/get_cat_by_id_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,12 +12,15 @@ class CatsController extends GetxController {
     Get.lazyPut(CatsController._);
   }
 
+  // HOMEPAGE
   final state = ConnectionState.none.obs;
   final allCats = <CatsBreeds>[].obs;
   final filterCats = <CatsBreeds>[].obs;
   final controllerFilter = TextEditingController().obs;
-
   final _getCats = GetAllCatsUseCaseImpl();
+
+  // DETAILSPAGE
+  final _getCatById = GetCatByIdUseCaseImpl();
 
   Future<void> getAllCats() async {
     try {
@@ -41,6 +45,25 @@ class CatsController extends GetxController {
       filterCats.value = allCats
           .where((cat) => cat.name.toLowerCase().contains(value.toLowerCase()))
           .toList();
+    }
+  }
+
+  CatsBreeds getCatById(String id) {
+    return allCats.firstWhere((cat) => cat.id == id,
+        orElse: () => CatsBreeds.empty());
+  }
+
+  Future<(bool, List<CatsImage>?)> getImageCatById(String id,
+      {int? limit}) async {
+    try {
+      final (success, cats) = await _getCatById.call(id, limit);
+      if (success) {
+        return (true, cats);
+      } else {
+        return (false, null);
+      }
+    } catch (e) {
+      return (false, null);
     }
   }
 }
