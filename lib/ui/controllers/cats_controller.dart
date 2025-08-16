@@ -16,7 +16,8 @@ class CatsController extends GetxController {
   final state = ConnectionState.none.obs;
   final allCats = <CatsBreeds>[].obs;
   final filterCats = <CatsBreeds>[].obs;
-  final controllerFilter = TextEditingController().obs;
+  final controllerFilter = TextEditingController();
+  final filterText = ''.obs;
   final FocusNode focusNode = FocusNode();
   final _getCats = GetAllCatsUseCaseImpl();
 
@@ -41,12 +42,13 @@ class CatsController extends GetxController {
   }
 
   void onChangeFilter(String value) {
+    filterText.value = value;
     if (value.isEmpty) {
-      filterCats.value = allCats;
+      filterCats.assignAll(allCats);
     } else {
-      filterCats.value = allCats
+      filterCats.assignAll(allCats
           .where((cat) => cat.name.toLowerCase().contains(value.toLowerCase()))
-          .toList();
+          .toList());
     }
   }
 

@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           TextFieldBase(
             focusNode: controller.focusNode,
-            controller: controller.controllerFilter.value,
+            controller: controller.controllerFilter,
             onChanged: controller.onChangeFilter,
             iconData: Icons.search,
           ),

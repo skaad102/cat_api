@@ -12,9 +12,9 @@ class CatList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final breeds = controller.controllerFilter.value.text.isEmpty
-          ? controller.allCats.value
-          : controller.filterCats.value;
+      final breeds = controller.filterText.value.isEmpty
+          ? controller.allCats
+          : controller.filterCats;
       return Expanded(
         child: SizedBox(
           height: 300,
