@@ -13,6 +13,8 @@ class CatsController extends GetxController {
 
   final state = ConnectionState.none.obs;
   final allCats = <CatsBreeds>[].obs;
+  final filterCats = <CatsBreeds>[].obs;
+  final controllerFilter = TextEditingController();
 
   final _getCats = GetAllCatsUseCaseImpl();
 
@@ -29,6 +31,16 @@ class CatsController extends GetxController {
       if (state.value != ConnectionState.done) {
         state.value = ConnectionState.done;
       }
+    }
+  }
+
+  void onChangeFilter(String value) {
+    if (value.isEmpty) {
+      filterCats.value = allCats;
+    } else {
+      filterCats.value = allCats
+          .where((cat) => cat.name.toLowerCase().contains(value.toLowerCase()))
+          .toList();
     }
   }
 }

@@ -28,7 +28,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          Padding(padding: const EdgeInsets.all(8.0), child: TextField()),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: controller.controllerFilter,
+              onChanged: controller.onChangeFilter,
+            ),
+          ),
           Obx(() => _buildBody()),
         ],
       ),
@@ -42,10 +48,11 @@ class _HomePageState extends State<HomePage> {
       case ConnectionState.waiting:
         return const Center(child: CircularProgressIndicator());
       case ConnectionState.done:
-        if (controller.allCats.isEmpty) {
-          return const Center(child: Text('No cat breeds found'));
+        if (controller.controllerFilter.text.isEmpty) {
+          return CatList(breeds: controller.allCats);
+        } else {
+          return CatList(breeds: controller.filterCats);
         }
-        return CatList(breeds: controller.allCats);
 
       case ConnectionState.active:
         return const Center(child: Text('Error loading data'));
