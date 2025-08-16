@@ -14,7 +14,7 @@ class CatsController extends GetxController {
   final state = ConnectionState.none.obs;
   final allCats = <CatsBreeds>[].obs;
   final filterCats = <CatsBreeds>[].obs;
-  final controllerFilter = TextEditingController();
+  final controllerFilter = TextEditingController().obs;
 
   final _getCats = GetAllCatsUseCaseImpl();
 

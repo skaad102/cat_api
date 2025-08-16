@@ -1,5 +1,6 @@
 import 'package:app_cat_pragma/ui/controllers/cats_controller.dart';
 import 'package:app_cat_pragma/ui/widgets/list_cats.dart';
+import 'package:app_cat_pragma/ui/widgets/text_field_base.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
@@ -28,12 +29,10 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: controller.controllerFilter,
-              onChanged: controller.onChangeFilter,
-            ),
+          TextFieldBase(
+            controller: controller.controllerFilter.value,
+            onChanged: controller.onChangeFilter,
+            iconData: Icons.search,
           ),
           Obx(() => _buildBody()),
         ],
@@ -48,7 +47,7 @@ class _HomePageState extends State<HomePage> {
       case ConnectionState.waiting:
         return const Center(child: CircularProgressIndicator());
       case ConnectionState.done:
-        if (controller.controllerFilter.text.isEmpty) {
+        if (controller.controllerFilter.value.text.isEmpty) {
           return CatList(breeds: controller.allCats);
         } else {
           return CatList(breeds: controller.filterCats);
