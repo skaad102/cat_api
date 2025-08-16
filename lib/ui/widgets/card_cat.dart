@@ -1,5 +1,6 @@
 import 'package:app_cat_pragma/domain/entity/cats_breeds.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CardCat extends StatefulWidget {
   const CardCat({super.key, required this.breeds});
@@ -35,6 +36,10 @@ class _CardCatState extends State<CardCat> {
                 child: Image.network(
                   widget.breeds.image!.url,
                   fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const Center(child: CircularProgressIndicator());
+                  },
                 ),
               ),
             Padding(
@@ -85,9 +90,15 @@ class _CardCatState extends State<CardCat> {
                       ],
                     ),
             ),
-            TextButton(
-              onPressed: () {},
-              child: const Text("Wiki"),
+            Visibility(
+              visible: widget.breeds.wikipediaUrl != null,
+              child: TextButton(
+                onPressed: () {
+                  final Uri url = Uri.parse(widget.breeds.wikipediaUrl!);
+                  launchUrl(url);
+                },
+                child: const Text("Wiki"),
+              ),
             ),
           ],
         ),
