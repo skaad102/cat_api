@@ -25,13 +25,13 @@ Una aplicación Flutter que muestra información detallada sobre diferentes raza
 ## 📸 Screenshots
 
 ### Pantalla Principal
-<img src="screenshot/img1.jpeg" width="300" alt="Lista de razas con búsqueda">
+<img src="assets/screenshot/img1.jpeg" width="300" alt="Lista de razas con búsqueda">
 
 ### Pantalla de Detalles
-<img src="screenshot/img2.jpeg" width="300" alt="Detalles de la raza">
+<img src="assets/screenshot/img2.jpeg" width="300" alt="Detalles de la raza">
 
 ### Galería de Imágenes
-<img src="screenshot/img3.jpeg" width="300" alt="Carrusel de imágenes">
+<img src="assets/screenshot/img3.jpeg" width="300" alt="Carrusel de imágenes">
 
 ## 🚀 Cómo ejecutar el proyecto
 
