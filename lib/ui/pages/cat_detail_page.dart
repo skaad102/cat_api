@@ -1,5 +1,6 @@
 import 'package:app_cat_pragma/domain/entity/cats_breeds.dart';
 import 'package:app_cat_pragma/ui/controllers/cats_controller.dart';
+import 'package:app_cat_pragma/ui/widgets/cat_image_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,6 +25,12 @@ class _CatDetailPageState extends State<CatDetailPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    controller.catsImage.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -32,20 +39,7 @@ class _CatDetailPageState extends State<CatDetailPage> {
         ),
         body: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
-              // Cambiar luego por la foto del gato con un carousel
-              child: Image.network(
-                cat.image?.url ?? '',
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
-            ),
+            CatImageCarousel(cat: cat),
             Expanded(
                 child: SingleChildScrollView(
               child: Column(

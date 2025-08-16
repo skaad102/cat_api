@@ -22,6 +22,7 @@ class CatsController extends GetxController {
 
   // DETAILSPAGE
   final _getCatById = GetCatByIdUseCaseImpl();
+  final catsImage = <CatsImage>[].obs;
 
   Future<void> getAllCats() async {
     try {
@@ -58,7 +59,13 @@ class CatsController extends GetxController {
       {int? limit}) async {
     try {
       final (success, cats) = await _getCatById.call(id, limit);
+      final initPhotoCat = getCatById(id).image ?? CatsImage.empty();
       if (success) {
+        if (initPhotoCat.id.isEmpty) {
+          catsImage.value = cats ?? [];
+        } else {
+          catsImage.value = [initPhotoCat, ...?cats];
+        }
         return (true, cats);
       } else {
         return (false, null);
