@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           TextFieldBase(
+            focusNode: controller.focusNode,
             controller: controller.controllerFilter.value,
             onChanged: controller.onChangeFilter,
             iconData: Icons.search,
@@ -47,12 +48,7 @@ class _HomePageState extends State<HomePage> {
       case ConnectionState.waiting:
         return const Center(child: CircularProgressIndicator());
       case ConnectionState.done:
-        if (controller.controllerFilter.value.text.isEmpty) {
-          return CatList(breeds: controller.allCats);
-        } else {
-          return CatList(breeds: controller.filterCats);
-        }
-
+        return CatList();
       case ConnectionState.active:
         return const Center(child: Text('Error loading data'));
     }

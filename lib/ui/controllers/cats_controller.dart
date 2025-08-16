@@ -17,6 +17,7 @@ class CatsController extends GetxController {
   final allCats = <CatsBreeds>[].obs;
   final filterCats = <CatsBreeds>[].obs;
   final controllerFilter = TextEditingController().obs;
+  final FocusNode focusNode = FocusNode();
   final _getCats = GetAllCatsUseCaseImpl();
 
   // DETAILSPAGE
